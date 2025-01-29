@@ -1,0 +1,40 @@
+:root {
+    --table-bg: light-dark(#F3F1F1, #1D1D1D);
+    --even-row-bg: light-dark(#F7F4F4, #202020);
+    --thead-bg: light-dark(#E5E5E5, #171717);
+}
+
+table {
+    background-color: var(--table-bg);
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    thead {
+        background-color: var(--thead-bg);
+        tr > th {
+            border: none;
+            padding: 10px 0;
+        }
+    }
+
+    tbody > tr:nth-child(even) {
+        background-color: var(--even-row-bg);
+    }
+    tbody > tr > td {
+        padding: 3px;
+        &.error {
+            position: relative;
+            border-bottom: solid 1px var(--error-color);
+            &::after {
+                content: "";
+                width: 5px;
+                aspect-ratio: 1;
+                position: absolute;
+                right: 5px;
+                top: 2px;
+                border-radius: 50%;
+                background-color:var(--error-color);
+            }
+        }
+    }
+}
