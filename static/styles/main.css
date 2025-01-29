@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    color-scheme: light dark;
+    --bg-color: light-dark(#FFFCF8, #151515);
+    --secondary-color: light-dark(#0FF00F, #F3E6D6);
+    --accent-color: light-dark(#A91D3A, #C81943);
+    --error-color: light-dark(#A91D3A, #C81943);
+    --color: light-dark(#000, #FFF);
+    --font: 'Playfair Display', serif, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--color);
+    font-family: var(--font);
+    font-size: 1.4em;
+    padding-top: 20px;
+
+    &> * {
+        width: 80dvw;
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+}
+
+
+h1,h2,h3 {
+    color: var(--accent-color);
+    : var(--accent-color);
+}
