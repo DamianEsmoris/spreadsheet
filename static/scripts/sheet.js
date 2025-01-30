@@ -33,7 +33,7 @@ import { SpreadSheetTable } from "/scripts/modules/spread-sheet-table.js";
 })();
 
 function predefinedTableTest(){
-    const structure = (() => {
+    const mStructure = (() => {
         const ISO8061Regex = /^[0-9]{4}-((0[1-9])|(1[12]))-(([0-2][1-9])|([3][01]))$/;
         TYPE_SYSTEM.addType(new Type('floatRating1-10', /^(([1-9](\.[1-9])?)|10)$/));
         TYPE_SYSTEM.addAlias('mediaRating', 'floatRating1-10');
@@ -53,11 +53,38 @@ function predefinedTableTest(){
         ];
     })();
 
-    const table = new SpreadSheetTable(document.body, TYPE_SYSTEM, structure);
-    table.append(['Child\'s play', '1998-11-09', 'Tom Holland' ,'6.7']);
-    table.append(['Crepúsculo (non english text)', '2008/11/20', 'Catherine Hardwicke' ,'5.3']);
-    table.append(['Some movie that doesn\'t exist', '2009-35-01', 'John Doe' ,'bad']);
+    const mTable = new SpreadSheetTable(document.body, TYPE_SYSTEM, mStructure);
+    mTable.append(['Child\'s play', '1998-11-09', 'Tom Holland' ,'6.7']);
+    mTable.append(['Crepúsculo (non english text)', '2008/11/20', 'Catherine Hardwicke' ,'5.3']);
+    mTable.render();
+
 }
 
-predefinedTableTest();
+function infiniteScrollTest() {
+    const nStructure = (() => {
+        const [ tUnsignedInt, positiveNumber ] = [ 
+            TYPE_SYSTEM.addType(new Type('unsignedInt', /^(([1-9]([0-9]+)?)|0)$/)),
+            TYPE_SYSTEM.addType(new Type('positiveNumber', null, (n) => n > 0))
+        ].map(t => t.name);
 
+        return [
+            { title: 'uint', type: tUnsignedInt },
+            { title: '+int', type: positiveNumber },
+        ];
+    })();
+
+    const nTable = new SpreadSheetTable(document.body, TYPE_SYSTEM, nStructure);
+    for (let i = -1; i <= 53; i++)
+        nTable.append([i, i]);
+    const opts = { striped: false, infScroll: true };
+    nTable.render(opts);
+
+    document.onkeydown = (event) => {
+        if (event.key === 'r') {
+            nTable.drender();
+            nTable.render(opts);
+        }
+    }
+}
+
+infiniteScrollTest();

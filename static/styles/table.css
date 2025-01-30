@@ -4,6 +4,10 @@
     --thead-bg: light-dark(#E5E5E5, #171717);
 }
 
+table.striped > tbody > tr:nth-child(even) {
+    background-color: var(--even-row-bg);
+}
+
 table {
     background-color: var(--table-bg);
     border-spacing: 0;
@@ -17,9 +21,6 @@ table {
         }
     }
 
-    tbody > tr:nth-child(even) {
-        background-color: var(--even-row-bg);
-    }
     tbody > tr > td {
         padding: 3px;
         &.error {
